@@ -167,9 +167,9 @@ echo implode("\n", Planet::getEnumInstances());
 
 --- Output
 Earth(G: 9.78, r: 6371000m)
-Jupiter(G: 24.79, r: 69911000m)
 Mars(G: 3.70, r: 3389500m)
 Venus(G: 8.87, r: 6051800m)
+Jupiter(G: 24.79, r: 69911000m)
 ```
 
 ## Are there future plans?

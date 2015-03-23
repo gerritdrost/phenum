@@ -17,12 +17,12 @@
   },
   "autoload": {
     "psr-0": {
-      "GerritDrost\\Lib\\": "src/"
+      "GerritDrost\\Lib\\Enum\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-0": {
-      "GerritDrost\\Lib\\": "tests/"
+      "GerritDrost\\Lib\\Enum\\": "tests/"
     }
   }
 }

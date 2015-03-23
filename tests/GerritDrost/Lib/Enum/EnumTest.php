@@ -1,6 +1,6 @@
 <?php
 
-namespace GerritDrost\Lib;
+namespace GerritDrost\Lib\Enum;
 
 use PHPUnit_Framework_TestCase;
 

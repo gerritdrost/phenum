@@ -6,7 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
  * @method static Fruit APPLE()
  * @method static Fruit BANANA()
  */
-class Fruit extends GerritDrost\Lib\SimpleEnum
+class Fruit extends GerritDrost\Lib\Enum\SimpleEnum
 {
     const APPLE = 'apple';
     const BANANA = 'banana';

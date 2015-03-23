@@ -27,7 +27,7 @@ $volvo = CarBrand::VOLVO();
 $audi  = CarBrand::AUDI();
 $dacia = CarBrand::DACIA();
 
-$enumMap = new GerritDrost\Lib\EnumMap(CarBrand::class);
+$enumMap = new GerritDrost\Lib\Enum\EnumMap(CarBrand::class);
 
 // Use it using the map method
 $enumMap->map(CarBrand::VOLVO(), ['C30', 'V40', 'S60', 'V60', 'XC90']);

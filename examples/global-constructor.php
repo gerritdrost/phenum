@@ -6,7 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
  * @method static Vegetable BROCCOLI()
  * @method static Vegetable CABBAGE()
  */
-class Vegetable extends GerritDrost\Lib\Enum
+class Vegetable extends GerritDrost\Lib\Enum\Enum
 {
     const BROCCOLI = 'broccoli';
     const CABBAGE = 'cabbage';

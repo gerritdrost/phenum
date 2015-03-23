@@ -8,7 +8,7 @@ require __DIR__ . '/../vendor/autoload.php';
  * @method static Planet VENUS()
  * @method static Planet JUPITER()
  */
-class Planet extends GerritDrost\Lib\SimpleEnum
+class Planet extends GerritDrost\Lib\Enum\SimpleEnum
 {
     const EARTH = 'Earth';
     const MARS = 'Mars';

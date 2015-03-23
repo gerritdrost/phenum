@@ -163,15 +163,7 @@ class Planet extends GerritDrost\Lib\SimpleEnum
     }
 }
 
-echo implode(
-    "\n",
-    array(
-        Planet::EARTH(),
-        Planet::JUPITER(),
-        Planet::MARS(),
-        Planet::VENUS()
-    )
-);
+echo implode("\n", Planet::getEnumInstances());
 
 --- Output
 Earth(G: 9.78, r: 6371000m)

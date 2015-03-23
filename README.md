@@ -2,85 +2,180 @@
 Enums for PHP, nuff said
 
 ## Description
-A lot of people love enums. Unfortunately, PHP does not support them out-of-the-box, it requires `SplEnum` to be installed. However, that unfortunately is often not an option because you can't install it on one of your target environments. Also, SplEnum sort of is a limited implementation of Enum.
-
-I stumbled across these problems as well and decided to attempt to solve them: say hello to phenum.
+A lot of people love enums. Unfortunately, PHP does not support them out-of-the-box, it requires `SplEnum` to be installed. I stumbled across this problems as well and decided to attempt to solve it: say hello to phenum.
 
 ## Why phenum?
-First of all, you don't need SplEnum! The only thing you need is composer, which is a common thing nowadays.
+Because it's easy to use and has some cool features. Enum values are not simple scalars, they actually are singleton objects. Every enum value has it's own instance and can have it's own variables! Want to know why? Check out the examples.
 
-Secondly, *phenum* not only allows enumerations, the enum values are also actually objects! This means that the name and value of the constant are provided through the object, there is an `equals()` method and the enum can have properties that are global or value-dependant.
+## Setup
+Include [`gerritdrost/phenum`](https://packagist.org/packages/gerritdrost/phenum) using composer.
 
-## Are there downsides?
-Yup, unfortunately there are some. First of all, to have type hinting you'll require some phpdoc method hinting. Secondly, *phenum* makes use of `ReflectionClass` and `ReflectionMethod` for the creating of the enum instances, which as you might know, is kind of expensive. Still, since it is only done moderately, stuff won't immediately explode. Just wanted to let you know.
+## Examples
 
-## Are there future plans?
-I want to look into possibilities to cache/compile enums so the reflection downsides disappear. I'm not sure how I want to approach it yet, I first need to find out which methods will actually be an improvement and what the implications are for developers using this. *Phenum* should remain easy to use after all :)
-
-## How do I use it?
-
-### Composer
-Include `gerritdrost\phenum` from packagist.
-
-### Example
-Actually, it's pretty self-explanatory:
+### Simple enum
 ```php
-
 /**
- * @method static FoobarEnum FOO()
- * @method static FoobarEnum BAR()
+ * @method static Fruit APPLE()
+ * @method static Fruit BANANA()
  */
-class FoobarEnum extends GerritDrost\Lib\Enum
+class Fruit extends GerritDrost\Lib\SimpleEnum
 {
-    const FOO = 0;
-    const BAR = 1;
-
-    private $foobar;
-    private $constructed = false;
-
-    private function __FOO() {
-        $this->foobar = 'foo';
-    }
-
-    private function __BAR() {
-        $this->foobar = 'bar';
-    }
-
-    public function getFoobar()
-    {
-        return $this->foobar;
-    }
-
-    protected function construct()
-    {
-        $this->constructed = true;
-    }
+    const APPLE = 'apple';
+    const BANANA = 'banana';
 }
 
 // Notice the function brackets at the end, we are secretly calling methods here
-$foo = FoobarEnum::FOO();
-$bar = FoobarEnum::BAR();
+$apple = Fruit::APPLE();
+$banana = Fruit::BANANA();
 
-print_r($foo);
-print_r($bar);
+// getEnumValue() returns the const value
+echo $apple->getEnumValue() . "\n";
+// getEnumName() returns the const name
+echo $banana->getEnumName() . "\n";
+// Equals is only true when the enums are of the same class and represent the same const
+echo $apple->equals($banana) ? 'equal' : 'not equal';
 --- Output
-FoobarEnum Object
-(
-    [foobar:FoobarEnum:private] => foo
-    [constructed:FoobarEnum:private] => 1
-    [fqcn:GerritDrost\Lib\Enum:private] => FoobarEnum
-    [name:GerritDrost\Lib\Enum:private] => FOO
-    [value:GerritDrost\Lib\Enum:private] => 0
-) 
-FoobarEnum Object
-(
-    [foobar:FoobarEnum:private] => bar
-    [constructed:FoobarEnum:private] => 1
-    [fqcn:GerritDrost\Lib\Enum:private] => FoobarEnum
-    [name:GerritDrost\Lib\Enum:private] => BAR
-    [value:GerritDrost\Lib\Enum:private] => 1
-)
+apple
+BANANA
+not equal
 ```
 
-### Are the constructors obligatory?
-You can always leave out the instance specific constructors like `protected function __FOO()` or `protected  function __BAR()`. They are detected through reflection and are simply ignored if not present. If you don't want to use the global constructor, extend from `GerritDrost\Lib\SimpleEnum` instead of `GerritDrost\Lib\Enum`. Easy as that :)
+### With global constructor
+```php
+/**
+ * @method static Vegetable BROCCOLI()
+ * @method static Vegetable CABBAGE()
+ */
+class Vegetable extends GerritDrost\Lib\Enum
+{
+    const BROCCOLI = 'broccoli';
+    const CABBAGE = 'cabbage';
+
+    private $counter = 0;
+
+    protected function construct()
+    {
+        $this->counter = 0;
+    }
+
+    public function increment()
+    {
+        $this->counter++;
+    }
+
+    public function getCounter()
+    {
+        return $this->counter;
+    }
+}
+
+// Get the broccoli enum value
+$broccoli = Vegetable::BROCCOLI();
+
+// And another one. But this will actually be the same object because enum values are sort of singletons
+$anotherBroccoli = Vegetable::BROCCOLI();
+
+// And get some cabbage
+$cabbage = Vegetable::CABBAGE();
+
+// These calls should increment the same counter
+$broccoli->increment();
+$anotherBroccoli->increment();
+
+// And this one a different one
+$cabbage->increment();
+
+// Should be 1
+echo $cabbage->getCounter() . "\n";
+// Should be 2
+echo $broccoli->getCounter() . "\n";
+// Should be 2
+echo $anotherBroccoli->getCounter();
+--- Output
+1
+2
+2
+```
+
+### Value constructors
+```php
+/**
+ * @method static Planet EARTH()
+ * @method static Planet MARS()
+ * @method static Planet VENUS()
+ * @method static Planet JUPITER()
+ */
+class Planet extends GerritDrost\Lib\SimpleEnum
+{
+    const EARTH = 'Earth';
+    const MARS = 'Mars';
+    const VENUS = 'Venus';
+    const JUPITER = 'Jupiter';
+
+    private $g;
+    private $radius;
+
+    public function __EARTH()
+    {
+        $this->radius = 6371000;
+        $this->g = 9.78033;
+    }
+
+    public function __MARS()
+    {
+        $this->radius = 3389500;
+        $this->g = 3.7;
+    }
+
+    public function __VENUS()
+    {
+        $this->radius = 6051800;
+        $this->g = 8.872;
+    }
+
+    public function __JUPITER()
+    {
+        $this->radius = 69911000;
+        $this->g = 24.79;
+    }
+
+    public function getName()
+    {
+        // alias to the enum value
+        return $this->getEnumValue();
+    }
+
+    public function getG()
+    {
+        return $this->g;
+    }
+
+    public function getRadius()
+    {
+        return $this->radius;
+    }
+
+    public function __toString()
+    {
+        return sprintf('%s(G: %0.2f, r: %dm)', $this->getName(), $this->getG(), $this->getRadius());
+    }
+}
+
+echo implode(
+    "\n",
+    array(
+        Planet::EARTH(),
+        Planet::JUPITER(),
+        Planet::MARS(),
+        Planet::VENUS()
+    )
+);
+--- Output
+Earth(G: 9.78, r: 6371000m)
+Jupiter(G: 24.79, r: 69911000m)
+Mars(G: 3.70, r: 3389500m)
+Venus(G: 8.87, r: 6051800m)
+```
+
+## Are there future plans?
+I want to look into possibilities to cache/compile enums so I don't have to rely on reflection at runtime anymore. I'm not sure how I want to approach it yet, I first need to find out which methods will actually be an improvement and what the implications are for developers using this. *Phenum* should remain easy to use after all :)

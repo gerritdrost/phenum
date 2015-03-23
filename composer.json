@@ -1,5 +1,5 @@
 {
-  "name": "gerritdrost/lib-enum",
+  "name": "gerritdrost/phenum",
   "description": "Because PHP needs Enums",
   "minimum-stability": "dev",
   "license": "MIT",

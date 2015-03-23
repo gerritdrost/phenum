@@ -5,7 +5,7 @@ Enums for PHP, nuff said
 A lot of people love enums. Unfortunately, PHP does not support them out-of-the-box, it requires `SplEnum` to be installed. I stumbled across this problems as well and decided to attempt to solve it: say hello to phenum.
 
 ## Why phenum?
-Because it's easy to use and has some cool features. Enum values are not simple scalars, they actually are singleton objects. Every enum value has it's own instance and can have it's own variables! Want to know why? Check out the examples.
+Because it's easy to use and has some cool features. Enum values are actually are singleton objects, they have their own instance and can have their own variables! Also the library provides utility classes like the EnumMap which can be used to map values to Enums, something not possible with regular PHP arrays.
 
 ## Setup
 Include [`gerritdrost/phenum`](https://packagist.org/packages/gerritdrost/phenum) using composer.
@@ -173,4 +173,4 @@ Jupiter(G: 24.79, r: 69911000m)
 ```
 
 ## Are there future plans?
-I want to look into possibilities to cache/compile enums so I don't have to rely on reflection at runtime anymore. I'm not sure how I want to approach it yet, I first need to find out which methods will actually be an improvement and what the implications are for developers using this. *Phenum* should remain easy to use after all :)
+I want to look into possibilities to cache/compile enums so I don't have to rely on reflection at runtime anymore. I'm not sure how I want to approach it yet, I first need to find out which methods of caching/compiling will actually be an improvement and what their implications are.

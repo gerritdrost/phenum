@@ -36,6 +36,8 @@ abstract class Enum
     protected abstract function construct();
 
     /**
+     * Returns true if the provided value is the same enum (same class and same constant)
+     *
      * @param $enum
      *
      * @return bool
@@ -63,6 +65,16 @@ abstract class Enum
     public final function getEnumValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Returns all instances of this Enum
+     *
+     * @return Enum[]
+     */
+    public static final function getEnumInstances()
+    {
+        return self::getInstances(get_called_class());
     }
 
     /**
@@ -95,15 +107,27 @@ abstract class Enum
      */
     private final static function getInstance($fqcn, $name)
     {
+        $instances = self::getInstances($fqcn);
+
+        if (!isset($instances[$name])) {
+            return null;
+        } else {
+            return $instances[$name];
+        }
+    }
+
+    /**
+     * @param string $fqcn FQCN of the enum
+     *
+     * @return Enum[]
+     */
+    private final static function &getInstances($fqcn)
+    {
         if (!isset(self::$instances[$fqcn])) {
             self::loadClass($fqcn);
         }
 
-        if (!isset(self::$instances[$fqcn][$name])) {
-            return null;
-        } else {
-            return self::$instances[$fqcn][$name];
-        }
+        return self::$instances[$fqcn];
     }
 
     /**

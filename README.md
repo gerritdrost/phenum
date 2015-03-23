@@ -19,6 +19,9 @@ I want to look into possibilities to cache/compile enums so the reflection downs
 
 ## How do I use it?
 
+### Composer
+Include `gerritdrost\phenum` from packagist.
+
 ### Example
 Actually, it's pretty self-explanatory:
 ```php

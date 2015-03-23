@@ -7,7 +7,7 @@ require __DIR__ . '/../vendor/autoload.php';
  * @method static CarBrand AUDI()
  * @method static CarBrand DACIA()
  */
-class CarBrand extends GerritDrost\Lib\SimpleEnum
+class CarBrand extends GerritDrost\Lib\Enum\SimpleEnum
 {
     const VOLVO  = 'Volvo';
     const AUDI   = 'Audi';

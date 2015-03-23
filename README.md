@@ -34,6 +34,7 @@ echo $apple->getEnumValue() . "\n";
 echo $banana->getEnumName() . "\n";
 // Equals is only true when the enums are of the same class and represent the same const
 echo $apple->equals($banana) ? 'equal' : 'not equal';
+
 --- Output
 apple
 BANANA
@@ -91,6 +92,7 @@ echo $cabbage->getCounter() . "\n";
 echo $broccoli->getCounter() . "\n";
 // Should be 2
 echo $anotherBroccoli->getCounter();
+
 --- Output
 1
 2
@@ -170,6 +172,7 @@ echo implode(
         Planet::VENUS()
     )
 );
+
 --- Output
 Earth(G: 9.78, r: 6371000m)
 Jupiter(G: 24.79, r: 69911000m)

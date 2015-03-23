@@ -68,6 +68,22 @@ abstract class Enum
     }
 
     /**
+     * Returns the Enum with the provided name as const name or null
+     *
+     * @param string $enumName
+     *
+     * @return Enum
+     */
+    public static final function byName($enumName)
+    {
+        $instances = self::getInstances(get_called_class());
+
+        return isset($instances[$enumName])
+            ? $instances[$enumName]
+            : null;
+    }
+
+    /**
      * Returns all instances of this Enum
      *
      * @return Enum[]

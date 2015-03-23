@@ -11,6 +11,31 @@ class EnumTest extends PHPUnit_Framework_TestCase
         $this->assertNull(TestEnum::YOLO());
     }
 
+    public function testByNameNotExists()
+    {
+        $bazByName = TestEnum::byName('BAZ');
+        $this->assertNull($bazByName);
+    }
+
+    public function testByName()
+    {
+        $foo = TestEnum::FOO();
+        $fooByName = TestEnum::byName('FOO');
+
+        $this->assertNotNull($fooByName);
+        $this->assertTrue($foo->equals($fooByName));
+        $this->assertSame($foo, $fooByName);
+
+        $bar = TestEnum::BAR();
+        $barByName = TestEnum::byName('BAR');
+
+        $this->assertNotNull($barByName);
+        $this->assertTrue($bar->equals($barByName));
+        $this->assertSame($bar, $barByName);
+
+        $this->assertFalse($fooByName->equals($barByName));
+    }
+
     public function testExistingConst()
     {
         $foo = TestEnum::FOO();

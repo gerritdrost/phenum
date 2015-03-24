@@ -1,5 +1,5 @@
 # phenum
-Enums for PHP, nuff said
+Enums for PHP, nuff said.
 
 ## Description
 A lot of people love enums. Unfortunately, PHP does not support them out-of-the-box, it requires `SplEnum` to be installed. I stumbled across this problems as well and decided to attempt to solve it: say hello to phenum.

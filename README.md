@@ -17,35 +17,6 @@ Include [`gerritdrost/phenum`](https://packagist.org/packages/gerritdrost/phenum
 
 ## Examples
 
-### Simple enum
-```php
-/**
- * @method static Fruit APPLE()
- * @method static Fruit BANANA()
- */
-class Fruit extends GerritDrost\Lib\Enum\SimpleEnum
-{
-    const APPLE = 'apple';
-    const BANANA = 'banana';
-}
-
-// Notice the function brackets at the end, we are secretly calling methods here
-$apple = Fruit::APPLE();
-$banana = Fruit::BANANA();
-
-// getEnumValue() returns the const value
-echo $apple->getEnumValue() . "\n";
-// getEnumName() returns the const name
-echo $banana->getEnumName() . "\n";
-// Equals is only true when the enums are of the same class and represent the same const
-echo $apple->equals($banana) ? 'equal' : 'not equal';
-
---- Output
-apple
-BANANA
-not equal
-```
-
 ### With global constructor
 ```php
 /**

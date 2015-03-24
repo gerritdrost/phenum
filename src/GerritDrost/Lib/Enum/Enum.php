@@ -99,7 +99,7 @@ abstract class Enum
      *
      * @return Enum[]
      */
-    public static final function getEnumInstances()
+    public static final function getEnumValues()
     {
         return self::getInstances(get_called_class());
     }

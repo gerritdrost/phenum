@@ -79,11 +79,12 @@ class EnumMap implements Iterator, ArrayAccess {
     }
 
     /**
-     * @param Enum $enum The offset to retrieve.
+     * @param Enum  $enum            The offset to retrieve.
+     * @param mixed $notPresentValue The value to return when the enum is not mapped
      *
      * @return mixed Can return all value types.
      */
-    public function get(Enum $enum)
+    public function get(Enum $enum, $notPresentValue = null)
     {
         if (get_class($enum) !== $this->fqcn) {
             return null;
@@ -91,7 +92,7 @@ class EnumMap implements Iterator, ArrayAccess {
 
         return isset($this->valueMap[$enum->getEnumName()])
             ? $this->valueMap[$enum->getEnumName()]
-            : null;
+            : $notPresentValue;
     }
 
     /**

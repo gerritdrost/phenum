@@ -67,6 +67,15 @@ class EnumTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $bar->getFoobar());
     }
 
+    public function testGetInstances()
+    {
+        $instances = TestEnum::getEnumInstances();
+
+        $this->assertCount(2, $instances);
+        $this->assertContains(TestEnum::FOO(), $instances);
+        $this->assertContains(TestEnum::BAR(), $instances);
+    }
+
     public function testEquals()
     {
         $foo  = TestEnum::FOO();

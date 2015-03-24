@@ -172,5 +172,16 @@ class Planet extends GerritDrost\Lib\Enum\SimpleEnum
 
 Now you can output them with this one-liner:
 ```php
-implode("\n", Planet::getEnumValues());
+echo implode("\n", Planet::getEnumValues());
+
+--- Output
+Mercury(G: 3.700m/s², r: 2439500m)
+Venus(G: 8.872m/s², r: 6051800m)
+Earth(G: 9.780m/s², r: 6371000m)
+Mars(G: 3.700m/s², r: 3389500m)
+Jupiter(G: 24.790m/s², r: 69911000m)
+Saturn(G: 9.000m/s², r: 60218000m)
+Uranus(G: 8.700m/s², r: 25559000m)
+Neptune(G: 11.000m/s², r: 24764000m)
+Pluto(G: 0.600m/s², r: 1195000m)
 ```

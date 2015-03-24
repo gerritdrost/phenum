@@ -8,19 +8,26 @@ abstract class Enum
 {
 
     /**
-     * @var string
+     * @var string FQCN of the extending enum class
      */
     private $fqcn;
 
     /**
-     * @var string
+     * @var string name of the const representing this enum value
      */
     private $name;
 
     /**
-     * @var mixed
+     * @var mixed value of the const representing this enum value
      */
     private $value;
+
+    /**
+     * Array of enum instances. First dimension contains FQCNs, second dimension contains constant names
+     *
+     * @var Enum[][]
+     */
+    private static $instances = [];
 
     /**
      * @param string $name
@@ -33,6 +40,9 @@ abstract class Enum
         $this->value = $value;
     }
 
+    /**
+     * Constructor method that is called once for all value singletons
+     */
     protected abstract function construct();
 
     /**
@@ -52,7 +62,7 @@ abstract class Enum
     }
 
     /**
-     * @return string
+     * @return string returns the name of the const representing this enum value
      */
     public final function getEnumName()
     {
@@ -60,7 +70,7 @@ abstract class Enum
     }
 
     /**
-     * @return mixed
+     * @return mixed returns the value of the const representing this enum value
      */
     public final function getEnumValue()
     {
@@ -68,7 +78,8 @@ abstract class Enum
     }
 
     /**
-     * Returns the Enum with the provided name as const name or null
+     * Returns the enum value instance representing the provided const name or null when the const name is not present in
+     * the enum.
      *
      * @param string $enumName
      *
@@ -84,7 +95,7 @@ abstract class Enum
     }
 
     /**
-     * Returns all instances of this Enum
+     * Returns all value singletons of this enum
      *
      * @return Enum[]
      */
@@ -94,10 +105,12 @@ abstract class Enum
     }
 
     /**
+     * This actually handles the ::FOO()-like calls to enum classes. Returns the right value singleton or null.
+     *
      * @param string  $name
      * @param mixed[] $arguments
      *
-     * @return static
+     * @return static|null
      */
     public final static function __callStatic($name, $arguments)
     {
@@ -109,17 +122,12 @@ abstract class Enum
     }
 
     /**
-     * Array of enum instances. First dimension contains FQCNs, second dimension contains constant names
+     * Returns the value singleton for the provided fqcn/name combination or null when the fqcn/name combo is invalid
      *
-     * @var Enum[][]
-     */
-    private static $instances = [];
-
-    /**
      * @param string $fqcn FQCN of the enum
      * @param string $name Name of the constant
      *
-     * @return static
+     * @return static|null
      */
     private final static function getInstance($fqcn, $name)
     {
@@ -133,6 +141,8 @@ abstract class Enum
     }
 
     /**
+     * Returns the array of all value singletons of one Enum class
+     *
      * @param string $fqcn FQCN of the enum
      *
      * @return Enum[]
@@ -147,6 +157,8 @@ abstract class Enum
     }
 
     /**
+     * Uses reflection to load and cache all value singletons of the class represented by the fqcn.
+     *
      * @param string $fqcn FQCN of the enum
      */
     private final static function loadClass($fqcn)

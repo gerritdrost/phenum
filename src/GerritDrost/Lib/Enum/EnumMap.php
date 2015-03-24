@@ -36,7 +36,7 @@ class EnumMap implements Iterator, ArrayAccess {
     public function __construct($fqcn)
     {
         if (!is_subclass_of($fqcn, Enum::class)) {
-            throw new InvalidArgumentException(sprintf('Provided fqcn does represent a class that extends %s', Enum::class));
+            throw new InvalidArgumentException(sprintf('Provided fqcn %s does not represent a class that extends %s', $fqcn, Enum::class));
         }
 
         $this->fqcn          = $fqcn;
@@ -68,12 +68,12 @@ class EnumMap implements Iterator, ArrayAccess {
      * @param Enum $enum An offset to check for.
      *
      * @return boolean true on success or false on failure.
+     *
+     * @throws InvalidArgumentException
      */
-    public function has($enum)
+    public function has(Enum $enum)
     {
-        if (get_class($enum) !== $this->fqcn) {
-            return false;
-        }
+        $this->checkType($enum);
 
         return isset($this->valueMap[$enum->getEnumName()]);
     }
@@ -83,12 +83,12 @@ class EnumMap implements Iterator, ArrayAccess {
      * @param mixed $notPresentValue The value to return when the enum is not mapped
      *
      * @return mixed Can return all value types.
+     *
+     * @throws InvalidArgumentException
      */
     public function get(Enum $enum, $notPresentValue = null)
     {
-        if (get_class($enum) !== $this->fqcn) {
-            return null;
-        }
+        $this->checkType($enum);
 
         return isset($this->valueMap[$enum->getEnumName()])
             ? $this->valueMap[$enum->getEnumName()]
@@ -100,12 +100,12 @@ class EnumMap implements Iterator, ArrayAccess {
      * @param mixed $value  The value to set.
      *
      * @return $this
+     *
+     * @throws InvalidArgumentException
      */
     public function map(Enum $enum, $value)
     {
-        if (get_class($enum) !== $this->fqcn) {
-            return $this;
-        }
+        $this->checkType($enum);
 
         $this->valueMap[$enum->getEnumName()] = $value;
         $this->mappedEnums[]                  = $enum;
@@ -117,12 +117,12 @@ class EnumMap implements Iterator, ArrayAccess {
      * @param Enum $enum The offset to unset.
      *
      * @return mixed|null the removed value on success, null otherwise
+     *
+     * @throws InvalidArgumentException
      */
     public function remove(Enum $enum)
     {
-        if (get_class($enum) !== $this->fqcn) {
-            return null;
-        }
+        $this->checkType($enum);
 
         $enumName = $enum->getEnumName();
 
@@ -155,6 +155,18 @@ class EnumMap implements Iterator, ArrayAccess {
     {
         $this->valueMap    = [];
         $this->mappedEnums = [];
+    }
+
+    /**
+     * @param Enum $enum
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function checkType(Enum $enum)
+    {
+        if (get_class($enum) !== $this->fqcn) {
+            throw new InvalidArgumentException(sprintf('Provided variable $enum is not of type %s', $this->fqcn));
+        }
     }
 
     /**

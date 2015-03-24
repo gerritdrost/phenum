@@ -8,26 +8,26 @@ class EnumTest extends PHPUnit_Framework_TestCase
 {
     public function testNonExistingConst()
     {
-        $this->assertNull(TestEnum::YOLO());
+        $this->assertNull(FoobarEnum::YOLO());
     }
 
     public function testByNameNotExists()
     {
-        $bazByName = TestEnum::byName('BAZ');
+        $bazByName = FoobarEnum::byName('BAZ');
         $this->assertNull($bazByName);
     }
 
     public function testByName()
     {
-        $foo = TestEnum::FOO();
-        $fooByName = TestEnum::byName('FOO');
+        $foo = FoobarEnum::FOO();
+        $fooByName = FoobarEnum::byName('FOO');
 
         $this->assertNotNull($fooByName);
         $this->assertTrue($foo->equals($fooByName));
         $this->assertSame($foo, $fooByName);
 
-        $bar = TestEnum::BAR();
-        $barByName = TestEnum::byName('BAR');
+        $bar = FoobarEnum::BAR();
+        $barByName = FoobarEnum::byName('BAR');
 
         $this->assertNotNull($barByName);
         $this->assertTrue($bar->equals($barByName));
@@ -38,48 +38,48 @@ class EnumTest extends PHPUnit_Framework_TestCase
 
     public function testExistingConst()
     {
-        $foo = TestEnum::FOO();
+        $foo = FoobarEnum::FOO();
         $this->assertNotNull($foo);
         $this->assertEquals('FOO', $foo->getEnumName());
-        $this->assertEquals(TestEnum::FOO, $foo->getEnumValue());
+        $this->assertEquals(FoobarEnum::FOO, $foo->getEnumValue());
 
-        $bar = TestEnum::BAR();
+        $bar = FoobarEnum::BAR();
         $this->assertNotNull($bar);
         $this->assertEquals('BAR', $bar->getEnumName());
-        $this->assertEquals(TestEnum::BAR, $bar->getEnumValue());
+        $this->assertEquals(FoobarEnum::BAR, $bar->getEnumValue());
     }
 
     public function testGlobalConstructor()
     {
-        $foo = TestEnum::FOO();
+        $foo = FoobarEnum::FOO();
         $this->assertTrue($foo->isInitialized());
 
-        $bar = TestEnum::BAR();
+        $bar = FoobarEnum::BAR();
         $this->assertTrue($bar->isInitialized());
     }
 
     public function testInstanceConstructors()
     {
-        $foo = TestEnum::FOO();
+        $foo = FoobarEnum::FOO();
         $this->assertEquals('foo', $foo->getFoobar());
 
-        $bar = TestEnum::BAR();
+        $bar = FoobarEnum::BAR();
         $this->assertEquals('bar', $bar->getFoobar());
     }
 
     public function testGetInstances()
     {
-        $instances = TestEnum::getEnumInstances();
+        $instances = FoobarEnum::getEnumInstances();
 
         $this->assertCount(2, $instances);
-        $this->assertContains(TestEnum::FOO(), $instances);
-        $this->assertContains(TestEnum::BAR(), $instances);
+        $this->assertContains(FoobarEnum::FOO(), $instances);
+        $this->assertContains(FoobarEnum::BAR(), $instances);
     }
 
     public function testEquals()
     {
-        $foo  = TestEnum::FOO();
-        $bar  = TestEnum::BAR();
+        $foo  = FoobarEnum::FOO();
+        $bar  = FoobarEnum::BAR();
 
         $this->assertFalse($foo->equals($bar));
         $this->assertFalse($bar->equals($foo));
@@ -87,7 +87,7 @@ class EnumTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($foo->equals($foo));
         $this->assertTrue($bar->equals($bar));
 
-        $foo2 = TestEnum::FOO();
+        $foo2 = FoobarEnum::FOO();
         $this->assertTrue($foo->equals($foo2));
     }
 }

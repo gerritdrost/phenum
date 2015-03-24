@@ -3,11 +3,10 @@
 namespace GerritDrost\Lib\Enum;
 
 /**
- * @method static TestEnum FOO()
- * @method static TestEnum BAR()
- * @method static TestEnum BAZ()
+ * @method static FoobarEnum FOO()
+ * @method static FoobarEnum BAR()
  */
-class TestEnum extends Enum
+class FoobarEnum extends Enum
 {
     const FOO = 0;
     const BAR = 1;

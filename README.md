@@ -15,7 +15,9 @@ PHP 5.5 or newer or HHVM and of course composer.
 ## Setup
 Include [`gerritdrost/phenum`](https://packagist.org/packages/gerritdrost/phenum) using composer.
 
-## Examples
+## Documentation
+
+You can find the latest documentation in the [docs folder](docs/readme.md).
 
 ### With global constructor
 ```php

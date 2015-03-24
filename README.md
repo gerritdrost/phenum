@@ -9,6 +9,9 @@ A lot of people love enums. Unfortunately, PHP does not support them out-of-the-
 ## Why phenum?
 Because it's easy to use and has some cool features. Enum values are actually are singleton objects, they have their own instance and can have their own variables! Also the library provides utility classes like the EnumMap which can be used to map values to Enums, something not possible with regular PHP arrays.
 
+## Dependencies
+PHP 5.5 or newer or HHVM and of course composer.
+
 ## Setup
 Include [`gerritdrost/phenum`](https://packagist.org/packages/gerritdrost/phenum) using composer.
 

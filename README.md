@@ -18,7 +18,7 @@ Include [`gerritdrost/phenum`](https://packagist.org/packages/gerritdrost/phenum
  * @method static Fruit APPLE()
  * @method static Fruit BANANA()
  */
-class Fruit extends GerritDrost\Lib\SimpleEnum
+class Fruit extends GerritDrost\Lib\Enum\SimpleEnum
 {
     const APPLE = 'apple';
     const BANANA = 'banana';
@@ -47,7 +47,7 @@ not equal
  * @method static Vegetable BROCCOLI()
  * @method static Vegetable CABBAGE()
  */
-class Vegetable extends GerritDrost\Lib\Enum
+class Vegetable extends GerritDrost\Lib\Enum\Enum
 {
     const BROCCOLI = 'broccoli';
     const CABBAGE = 'cabbage';
@@ -107,7 +107,7 @@ echo $anotherBroccoli->getCounter();
  * @method static Planet VENUS()
  * @method static Planet JUPITER()
  */
-class Planet extends GerritDrost\Lib\SimpleEnum
+class Planet extends GerritDrost\Lib\Enum\SimpleEnum
 {
     const EARTH = 'Earth';
     const MARS = 'Mars';

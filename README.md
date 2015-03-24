@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/gerritdrost/phenum.svg?branch=master)](https://travis-ci.org/gerritdrost/phenum)
 # phenum
 Enums for PHP, nuff said.
 

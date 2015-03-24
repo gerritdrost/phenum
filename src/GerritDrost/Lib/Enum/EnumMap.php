@@ -75,7 +75,7 @@ class EnumMap implements Iterator, ArrayAccess {
     {
         $this->checkType($enum);
 
-        return isset($this->valueMap[$enum->getEnumName()]);
+        return isset($this->valueMap[$enum->getConstName()]);
     }
 
     /**
@@ -90,8 +90,8 @@ class EnumMap implements Iterator, ArrayAccess {
     {
         $this->checkType($enum);
 
-        return isset($this->valueMap[$enum->getEnumName()])
-            ? $this->valueMap[$enum->getEnumName()]
+        return isset($this->valueMap[$enum->getConstName()])
+            ? $this->valueMap[$enum->getConstName()]
             : $notPresentValue;
     }
 
@@ -107,7 +107,7 @@ class EnumMap implements Iterator, ArrayAccess {
     {
         $this->checkType($enum);
 
-        $this->valueMap[$enum->getEnumName()] = $value;
+        $this->valueMap[$enum->getConstName()] = $value;
         $this->mappedEnums[]                  = $enum;
 
         return $this;
@@ -124,7 +124,7 @@ class EnumMap implements Iterator, ArrayAccess {
     {
         $this->checkType($enum);
 
-        $enumName = $enum->getEnumName();
+        $enumName = $enum->getConstName();
 
         if (isset($this->valueMap[$enumName])) {
             $value = $this->valueMap[$enumName];
@@ -179,7 +179,7 @@ class EnumMap implements Iterator, ArrayAccess {
     public function current()
     {
         return isset($this->mappedEnums[$this->iteratorIndex])
-            ? $this->valueMap[$this->mappedEnums[$this->iteratorIndex]->getEnumName()]
+            ? $this->valueMap[$this->mappedEnums[$this->iteratorIndex]->getConstName()]
             : null;
     }
 

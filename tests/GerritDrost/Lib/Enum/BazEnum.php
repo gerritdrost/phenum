@@ -13,6 +13,6 @@ class BazEnum extends SimpleEnum
 
     protected function __BAZ()
     {
-        $this->bazValue = $this->getEnumValue();
+        $this->bazValue = $this->getConstValue();
     }
 }

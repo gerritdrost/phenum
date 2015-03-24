@@ -40,13 +40,13 @@ class EnumTest extends PHPUnit_Framework_TestCase
     {
         $foo = FoobarEnum::FOO();
         $this->assertNotNull($foo);
-        $this->assertEquals('FOO', $foo->getEnumName());
-        $this->assertEquals(FoobarEnum::FOO, $foo->getEnumValue());
+        $this->assertEquals('FOO', $foo->getConstName());
+        $this->assertEquals(FoobarEnum::FOO, $foo->getConstValue());
 
         $bar = FoobarEnum::BAR();
         $this->assertNotNull($bar);
-        $this->assertEquals('BAR', $bar->getEnumName());
-        $this->assertEquals(FoobarEnum::BAR, $bar->getEnumValue());
+        $this->assertEquals('BAR', $bar->getConstName());
+        $this->assertEquals(FoobarEnum::BAR, $bar->getConstValue());
     }
 
     public function testGlobalConstructor()

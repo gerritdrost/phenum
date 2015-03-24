@@ -64,7 +64,7 @@ abstract class Enum
     /**
      * @return string returns the name of the const representing this enum value
      */
-    public final function getEnumName()
+    public final function getConstName()
     {
         return $this->name;
     }
@@ -72,7 +72,7 @@ abstract class Enum
     /**
      * @return mixed returns the value of the const representing this enum value
      */
-    public final function getEnumValue()
+    public final function getConstValue()
     {
         return $this->value;
     }

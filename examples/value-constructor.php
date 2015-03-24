@@ -18,25 +18,25 @@ class Planet extends GerritDrost\Lib\Enum\SimpleEnum
     private $g;
     private $radius;
 
-    public function __EARTH()
+    protected function __EARTH()
     {
         $this->radius = 6371000;
         $this->g = 9.78033;
     }
 
-    public function __MARS()
+    protected function __MARS()
     {
         $this->radius = 3389500;
         $this->g = 3.7;
     }
 
-    public function __VENUS()
+    protected function __VENUS()
     {
         $this->radius = 6051800;
         $this->g = 8.872;
     }
 
-    public function __JUPITER()
+    protected function __JUPITER()
     {
         $this->radius = 69911000;
         $this->g = 24.79;
@@ -63,5 +63,7 @@ class Planet extends GerritDrost\Lib\Enum\SimpleEnum
         return sprintf('%s(G: %0.2f, r: %dm)', $this->getName(), $this->getG(), $this->getRadius());
     }
 }
+
+echo Planet::EARTH() . "\n";
 
 echo implode("\n", Planet::getEnumInstances());

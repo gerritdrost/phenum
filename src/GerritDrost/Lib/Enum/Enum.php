@@ -161,10 +161,8 @@ abstract class Enum
             $instance->construct();
 
             $instanceConstructorName = '__' . $name;
-            if (method_exists($instance, $instanceConstructorName)) {
-                $reflectionMethod = $reflectionClass->getMethod($instanceConstructorName);
-                $reflectionMethod->setAccessible(true);
-                $reflectionMethod->invoke($instance);
+            if (is_callable([$instance, $instanceConstructorName])) {
+                $instance->$instanceConstructorName();
             }
 
             if (!isset(self::$instances[$fqcn])) {

@@ -169,8 +169,15 @@ class Planet extends GerritDrost\Lib\Enum\SimpleEnum
     }
 }
 ```
+Now you can access them directly:
+```php
+echo Planet::MERCURY()->getRadius() . "\n";
 
-Now you can output them with this one-liner:
+---  Output
+2439500
+```
+
+Or you can output all enum values them with this one-liner:
 ```php
 echo implode("\n", Planet::getEnumValues());
 

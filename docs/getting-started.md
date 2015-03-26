@@ -7,7 +7,7 @@ Below you can find a very simple enum.
  * @method static Fruit APPLE()
  * @method static Fruit BANANA()
  */
-class Fruit extends GerritDrost\Lib\Enum\SimpleEnum
+class Fruit extends GerritDrost\Lib\Enum\Enum
 {
     const APPLE = 'apple';
     const BANANA = 'banana';

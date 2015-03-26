@@ -5,7 +5,7 @@ namespace GerritDrost\Lib\Enum;
 /**
  * @method static BazEnum BAZ()
  */
-class BazEnum extends SimpleEnum
+class BazEnum extends Enum
 {
     const BAZ = 'baz';
 

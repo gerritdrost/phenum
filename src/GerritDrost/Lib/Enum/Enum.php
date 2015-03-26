@@ -41,11 +41,6 @@ abstract class Enum
     }
 
     /**
-     * Constructor method that is called once for all value singletons
-     */
-    protected abstract function construct();
-
-    /**
      * Returns true if the provided value is the same enum (same class and same constant)
      *
      * @param $enum
@@ -170,7 +165,9 @@ abstract class Enum
             $instance = new $fqcn($fqcn, $name, $value);
 
             /* @var $instance Enum */
-            $instance->construct();
+            if (is_callable([$instance, '__init'])) {
+                $instance->__init();
+            }
 
             $instanceConstructorName = '__' . $name;
             if (is_callable([$instance, $instanceConstructorName])) {

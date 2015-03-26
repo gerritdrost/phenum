@@ -32,7 +32,7 @@ class FoobarEnum extends Enum
         $this->foobar = 'bar';
     }
 
-    protected function __init()
+    protected function __initEnum()
     {
         $this->initialized = true;
     }

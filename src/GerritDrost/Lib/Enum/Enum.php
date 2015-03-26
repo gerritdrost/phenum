@@ -165,8 +165,8 @@ abstract class Enum
             $instance = new $fqcn($fqcn, $name, $value);
 
             /* @var $instance Enum */
-            if (is_callable([$instance, '__init'])) {
-                $instance->__init();
+            if (is_callable([$instance, '__initEnum'])) {
+                $instance->__initEnum();
             }
 
             $instanceConstructorName = '__' . $name;

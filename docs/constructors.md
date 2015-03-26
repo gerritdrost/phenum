@@ -3,7 +3,7 @@
 Because enum values are actually singletons and therefore objects, they are constructed at some point. To make use of this every enum can implement global and value-specific constructors. Note that these constructors officially aren't constructors. They are called right after the real constructor has been called, so maybe the technically more correct term would be "initializers". To the eye of the consuming developer however, they name constructor makes more sense.
 
 ## Global constructor
-The so-called global constructor can be used by adding a `protected function __init()`. This method is called after instantiation of the object and before the value-specific constructor. The alternative class `GerritDrost\Lib\Enum\SimpleEnum` features a default empty implementation for the global constructor and therefore does not require it to be implemented. You can see it being used in (Getting Started)[getting-started.md]. Below is an example of an enum facilitating the global constructor:
+The so-called global constructor can be used by adding a `protected function __initEnum()`. This method is called after instantiation of the object and before the value-specific constructor. The alternative class `GerritDrost\Lib\Enum\SimpleEnum` features a default empty implementation for the global constructor and therefore does not require it to be implemented. You can see it being used in (Getting Started)[getting-started.md]. Below is an example of an enum facilitating the global constructor:
 ```php
 /**
  * @method static Vegetable BROCCOLI()
@@ -16,7 +16,7 @@ class Vegetable extends GerritDrost\Lib\Enum\Enum
 
     private $counter = 0;
 
-    protected function __init()
+    protected function __initEnum()
     {
         $this->counter = 0;
     }

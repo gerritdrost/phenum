@@ -49,11 +49,7 @@ abstract class Enum
      */
     public final function equals($enum)
     {
-        return (
-            $enum instanceof Enum
-            && $this->fqcn === $enum->fqcn
-            && $this->name === $enum->name
-        );
+        return $this === $enum;
     }
 
     /**

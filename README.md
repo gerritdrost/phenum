@@ -16,7 +16,10 @@ PHP 5.5 or newer or HHVM and of course composer.
 Include [`gerritdrost/phenum`](https://packagist.org/packages/gerritdrost/phenum) using composer.
 
 ## Documentation
-You can find the latest documentation in the [docs folder](docs/readme.md).
+* [Getting Started](docs/getting-started.md)
+* [Constructors](docs/constructors.md)
+* [Example Usage](docs/example-usage.md)
+* [EnumMap](docs/enum-map.md)
 
 ## Future plans
 I want to look into possibilities to cache/compile enums so I don't have to rely on reflection at runtime anymore. I'm not sure how I want to approach it yet, I first need to find out which methods of caching/compiling will actually be an improvement and what their implications are.

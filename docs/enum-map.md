@@ -64,8 +64,8 @@ $enumMap = EnumMap::create(FoobarEnum::class)
     ->map(FoobarEnum::FOO(), 'foo string')
     ->map(FoobarEnum::BAR(), 'bar string');
 ```
-And the remove method also tells you what it deleted:
-```
+And the remove method also tells you what it deleted, pretty handy sometimes:
+```php
 $deletedValue = $enumMap->remove(FoobarEnum::FOO());
-echo $deletedValue;
+echo 'I deleted ' . $deletedValue . "!!1111\n";
 ```

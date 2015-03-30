@@ -1,8 +1,7 @@
 # Example usage
 
 ## Default interface implementation
-Imagine you have some code that connects to a server. Imagine for some reason you think psr/log is too complicated and need
-your own Logger interface
+Although it doesn't make sense, imagine for some reason you think `psr/log` is too complicated and need your own Logger interface.
 ```php
 interface Logger
 {

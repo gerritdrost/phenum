@@ -1,7 +1,7 @@
 # Example usage
 
 ## Default interface implementation
-Although it doesn't make sense, imagine for some reason you think `psr/log` is too complicated and need your own Logger interface.
+Although it doesn't make sense, imagine for some reason you think `psr/log` is too complicated and need your own Logger interface:
 ```php
 interface Logger
 {
@@ -17,7 +17,7 @@ interface Logger
 }
 ```
 
-Now you want to provide some default servers, so you could make this awesome Enum:
+Now you want to provide some default loggers, so you could make this awesome Enum:
 ```php
 /**
  * @method static DefaultLogger ECHOLOG()

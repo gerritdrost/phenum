@@ -73,7 +73,7 @@ class DefaultLogger extends GerritDrost\Lib\Enum\Enum implements Logger
 }
 ```
 
-Now the user of the library can choose to provide his own Server implementation or use your default ones like so:
+Now the user of the library can choose to provide his own Logger implementation or use your default ones like so:
 ```php
 /* @var Logger[] $loggers */
 $loggers = [ DefaultLogger::KITTEN(), DefaultLogger::ECHOLOG() ];
@@ -85,8 +85,9 @@ foreach ($loggers as $logger) {
     $logger->log($message);
     echo "\n";
 }
-
---- Output
+```
+Which results in the following output:
+```
 Logger: Because kittens
 I iz adorable!
 

@@ -81,7 +81,16 @@ $loggers = [ DefaultLogger::KITTEN(), DefaultLogger::ECHOLOG() ];
 $message = 'foobar';
 
 foreach ($loggers as $logger) {
-    $logger->log($logger->getName());
+    echo 'Logger: ' . $logger->getName() . "\n";
     $logger->log($message);
+    echo "\n";
 }
+
+--- Output
+Logger: Because kittens
+I iz adorable!
+
+Logger: Echo
+foobar
+
 ```

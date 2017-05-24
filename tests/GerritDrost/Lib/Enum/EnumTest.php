@@ -36,6 +36,25 @@ class EnumTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($fooByName->equals($barByName));
     }
 
+    public function testByValue()
+    {
+        $foo = FoobarEnum::FOO();
+        $fooByValue = FoobarEnum::byValue(0);
+
+        $this->assertNotNull($fooByValue);
+        $this->assertTrue($foo->equals($fooByValue));
+        $this->assertSame($foo, $fooByValue);
+
+        $bar = FoobarEnum::BAR();
+        $barByValue = FoobarEnum::byValue(1);
+
+        $this->assertNotNull($barByValue);
+        $this->assertTrue($bar->equals($barByValue));
+        $this->assertSame($bar, $barByValue);
+
+        $this->assertFalse($fooByValue->equals($barByValue));
+    }
+
     public function testExistingConst()
     {
         $foo = FoobarEnum::FOO();

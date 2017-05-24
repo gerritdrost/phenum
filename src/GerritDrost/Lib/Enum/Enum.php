@@ -86,6 +86,25 @@ abstract class Enum
     }
 
     /**
+     * Returns the enum instance that matches the provided const value, or null when the const value is not present in
+     * the enum.
+     *
+     * @param mixed $value
+     *
+     * @return Enum|null
+     */
+    public static function byValue($value)
+    {
+        foreach (self::getEnumValues() as $enumValue) {
+            if ($enumValue->getConstValue() === $value) {
+                return $enumValue;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Returns all value singletons of this enum
      *
      * @return Enum[]

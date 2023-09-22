@@ -33,7 +33,7 @@ abstract class Enum
      * @param string $name
      * @param mixed  $value
      */
-    private final function __construct($fqcn, $name, $value)
+    private function __construct($fqcn, $name, $value)
     {
         $this->fqcn = $fqcn;
         $this->name = $name;
@@ -120,7 +120,7 @@ abstract class Enum
      *
      * @return static|null
      */
-    private final static function getInstance($fqcn, $name)
+    private static function getInstance($fqcn, $name)
     {
         $instances = self::getInstances($fqcn);
 
@@ -138,7 +138,7 @@ abstract class Enum
      *
      * @return Enum[]
      */
-    private final static function &getInstances($fqcn)
+    private static function &getInstances($fqcn)
     {
         if (!isset(self::$instances[$fqcn])) {
             self::loadClass($fqcn);
@@ -152,7 +152,7 @@ abstract class Enum
      *
      * @param string $fqcn FQCN of the enum
      */
-    private final static function loadClass($fqcn)
+    private static function loadClass($fqcn)
     {
         $reflectionClass = new ReflectionClass($fqcn);
         $constants       = $reflectionClass->getConstants();

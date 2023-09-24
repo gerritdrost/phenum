@@ -2,22 +2,19 @@
 
 namespace GerritDrost\Lib\Enum;
 
-use PHPUnit_Framework_TestCase;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 
-class EnumMapTest extends PHPUnit_Framework_TestCase
+class EnumMapTest extends TestCase
 {
+    private EnumMap $enumMap;
 
-    /**
-     * @var EnumMap
-     */
-    private $enumMap;
-
-    public function setUp()
+    public function setUp(): void
     {
         $this->enumMap = EnumMap::create(FoobarEnum::class);
     }
 
-    public function accessMethodProvider()
+    public static function accessMethodProvider(): array
     {
         return [
             [
@@ -54,7 +51,7 @@ class EnumMapTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider accessMethodProvider
      */
-    public function testSize(callable $getter, callable $mapper, callable $remover, callable $checker)
+    public function testSize(callable $getter, callable $mapper, callable $remover, callable $checker): void
     {
         $enumMap = $this->enumMap;
         $this->assertSame(0, $enumMap->size());
@@ -75,7 +72,7 @@ class EnumMapTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider accessMethodProvider
      */
-    public function testHas(callable $getter, callable $mapper, callable $remover, callable $checker)
+    public function testHas(callable $getter, callable $mapper, callable $remover, callable $checker): void
     {
         $enumMap = $this->enumMap;
 
@@ -99,7 +96,7 @@ class EnumMapTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($checker($enumMap, FoobarEnum::BAR()));
     }
 
-    public function constructorProvider()
+    public static function constructorProvider(): array
     {
         return [
             [
@@ -118,7 +115,7 @@ class EnumMapTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider constructorProvider
      */
-    public function testConstruct(callable $constructor)
+    public function testConstruct(callable $constructor): void
     {
         $enumMap = $constructor(FoobarEnum::class);
 
@@ -127,83 +124,81 @@ class EnumMapTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider constructorProvider
-     * @expectedException InvalidArgumentException
      */
     public function testConstructWithInvalidEnumFQCN(callable $constructor)
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $enumMap = $constructor('Yolo');
     }
 
 
-    public function testRemove()
+    public function testRemove(): void
     {
         $fooValue = 'foo';
         $barValue = 'bar';
 
-        $enumMap = $this->enumMap
+        $this->enumMap
             ->map(FoobarEnum::FOO(), $fooValue)
             ->map(FoobarEnum::BAR(), $barValue);
 
-        $deletedFooValue = $enumMap->remove(FoobarEnum::FOO());
+        $deletedFooValue = $this->enumMap->remove(FoobarEnum::FOO());
         $this->assertSame($fooValue, $deletedFooValue);
 
-        $deletedBarValue = $enumMap->remove(FoobarEnum::BAR());
+        $deletedBarValue = $this->enumMap->remove(FoobarEnum::BAR());
         $this->assertSame($barValue, $deletedBarValue);
 
-        $deletedBarValue = $enumMap->remove(FoobarEnum::BAR());
+        $deletedBarValue = $this->enumMap->remove(FoobarEnum::BAR());
         $this->assertNull($deletedBarValue);
     }
 
-    public function testGetEnumFQCN()
+    public function testGetEnumFQCN(): void
     {
-        $enumMap = $this->enumMap;
-        $this->assertEquals(FoobarEnum::class, $enumMap->getEnumFQCN());
+        $this->assertEquals(FoobarEnum::class, $this->enumMap->getEnumFQCN());
     }
 
     /**
      * @dataProvider accessMethodProvider
      */
-    public function testGet(callable $getter, callable $mapper, callable $remover, callable $checker)
+    public function testGet(callable $getter, callable $mapper, callable $remover, callable $checker): void
     {
         $fooValue = 'foo';
         $barValue = 'bar';
 
-        $enumMap = $this->enumMap;
-        $this->assertNull($enumMap->get(FoobarEnum::FOO()));
-        $this->assertNull($enumMap->get(FoobarEnum::BAR()));
+        $this->assertNull($this->enumMap->get(FoobarEnum::FOO()));
+        $this->assertNull($this->enumMap->get(FoobarEnum::BAR()));
 
-        $mapper($enumMap, FoobarEnum::FOO(), $fooValue);
-        $this->assertSame($fooValue, $getter($enumMap, FoobarEnum::FOO()));
-        $this->assertNull($getter($enumMap, FoobarEnum::BAR()));
+        $mapper($this->enumMap, FoobarEnum::FOO(), $fooValue);
+        $this->assertSame($fooValue, $getter($this->enumMap, FoobarEnum::FOO()));
+        $this->assertNull($getter($this->enumMap, FoobarEnum::BAR()));
 
-        $mapper($enumMap, FoobarEnum::BAR(), $barValue);
-        $this->assertSame($fooValue, $getter($enumMap, FoobarEnum::FOO()));
-        $this->assertSame($barValue, $getter($enumMap, FoobarEnum::BAR()));
+        $mapper($this->enumMap, FoobarEnum::BAR(), $barValue);
+        $this->assertSame($fooValue, $getter($this->enumMap, FoobarEnum::FOO()));
+        $this->assertSame($barValue, $getter($this->enumMap, FoobarEnum::BAR()));
 
-        $remover($enumMap, FoobarEnum::BAR());
-        $this->assertSame($fooValue, $getter($enumMap, FoobarEnum::FOO()));
-        $this->assertNull($getter($enumMap, FoobarEnum::BAR()));
+        $remover($this->enumMap, FoobarEnum::BAR());
+        $this->assertSame($fooValue, $getter($this->enumMap, FoobarEnum::FOO()));
+        $this->assertNull($getter($this->enumMap, FoobarEnum::BAR()));
 
-        $remover($enumMap, FoobarEnum::FOO());
-        $this->assertNull($getter($enumMap, FoobarEnum::FOO()));
-        $this->assertNull($getter($enumMap, FoobarEnum::BAR()));
+        $remover($this->enumMap, FoobarEnum::FOO());
+        $this->assertNull($getter($this->enumMap, FoobarEnum::FOO()));
+        $this->assertNull($getter($this->enumMap, FoobarEnum::BAR()));
     }
 
-    public function testClear()
+    public function testClear(): void
     {
-        $enumMap = $this->enumMap;
+        $this->enumMap->map(FoobarEnum::FOO(), 'foo');
+        $this->enumMap->map(FoobarEnum::BAR(), 'bar');
 
-        $enumMap->map(FoobarEnum::FOO(), 'foo');
-        $enumMap->map(FoobarEnum::BAR(), 'bar');
+        $this->enumMap->clear();
 
-        $enumMap->clear();
-
-        $this->assertNull($enumMap->get(FoobarEnum::FOO()));
-        $this->assertNull($enumMap->get(FoobarEnum::BAR()));
-        $this->assertEquals(0, $enumMap->size());
+        $this->assertNull($this->enumMap->get(FoobarEnum::FOO()));
+        $this->assertNull($this->enumMap->get(FoobarEnum::BAR()));
+        $this->assertEquals(0, $this->enumMap->size());
     }
 
-    public function iteratorProvider() {
+    public static function iteratorProvider(): array
+    {
         return [
             [[
                 'foo' => FoobarEnum::FOO(),
@@ -223,19 +218,17 @@ class EnumMapTest extends PHPUnit_Framework_TestCase
      *
      * @param array $enumMappings
      */
-    public function testIterator(array $enumMappings)
+    public function testIterator(array $enumMappings): void
     {
-        $enumMap = $this->enumMap;
-
         $keys = [];
         $values = [];
         foreach ($enumMappings as $value => $key) {
-            $enumMap->map($key, $value);
+            $this->enumMap->map($key, $value);
             $keys[] = $key;
             $values[] = $value;
         }
 
-        foreach ($enumMap as $key => $value)
+        foreach ($this->enumMap as $key => $value)
         {
             $this->assertInstanceOf(Enum::class, $key);
             $this->assertContains($key, $keys);
@@ -247,23 +240,18 @@ class EnumMapTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGetNotPresentValue()
+    public function testGetNotPresentValue(): void
     {
-        $enumMap = $this->enumMap;
-
         $notPresentValue = 'foobar';
 
-        $this->assertEquals($notPresentValue, $enumMap->get(FoobarEnum::FOO(), $notPresentValue));
+        $this->assertEquals($notPresentValue, $this->enumMap->get(FoobarEnum::FOO(), $notPresentValue));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testInvalidHas()
+    public function testInvalidHas(): void
     {
-        $enumMap = $this->enumMap;
+        $this->expectException(InvalidArgumentException::class);
 
-        $enumMap->has(BazEnum::BAZ());
+        $this->enumMap->has(BazEnum::BAZ());
     }
 
     /**
@@ -271,9 +259,9 @@ class EnumMapTest extends PHPUnit_Framework_TestCase
      */
     public function testInvalidGet()
     {
-        $enumMap = $this->enumMap;
+        $this->expectException(InvalidArgumentException::class);
 
-        $enumMap->get(BazEnum::BAZ());
+        $this->enumMap->get(BazEnum::BAZ());
     }
 
     /**
@@ -281,8 +269,8 @@ class EnumMapTest extends PHPUnit_Framework_TestCase
      */
     public function testInvalidRemove()
     {
-        $enumMap = $this->enumMap;
+        $this->expectException(InvalidArgumentException::class);
 
-        $enumMap->remove(BazEnum::BAZ());
+        $this->enumMap->remove(BazEnum::BAZ());
     }
 }

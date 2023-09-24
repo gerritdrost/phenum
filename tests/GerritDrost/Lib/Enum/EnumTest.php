@@ -2,22 +2,22 @@
 
 namespace GerritDrost\Lib\Enum;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class EnumTest extends PHPUnit_Framework_TestCase
+class EnumTest extends TestCase
 {
-    public function testNonExistingConst()
+    public function testNonExistingConst(): void
     {
         $this->assertNull(FoobarEnum::YOLO());
     }
 
-    public function testByNameNotExists()
+    public function testByNameNotExists(): void
     {
         $bazByName = FoobarEnum::byName('BAZ');
         $this->assertNull($bazByName);
     }
 
-    public function testByName()
+    public function testByName(): void
     {
         $foo = FoobarEnum::FOO();
         $fooByName = FoobarEnum::byName('FOO');
@@ -36,7 +36,7 @@ class EnumTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($fooByName->equals($barByName));
     }
 
-    public function testExistingConst()
+    public function testExistingConst(): void
     {
         $foo = FoobarEnum::FOO();
         $this->assertNotNull($foo);
@@ -49,7 +49,7 @@ class EnumTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(FoobarEnum::BAR, $bar->getConstValue());
     }
 
-    public function testGlobalConstructor()
+    public function testGlobalConstructor(): void
     {
         $foo = FoobarEnum::FOO();
         $this->assertTrue($foo->isInitialized());
@@ -58,7 +58,7 @@ class EnumTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($bar->isInitialized());
     }
 
-    public function testInstanceConstructors()
+    public function testInstanceConstructors(): void
     {
         $foo = FoobarEnum::FOO();
         $this->assertEquals('foo', $foo->getFoobar());
@@ -67,7 +67,7 @@ class EnumTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $bar->getFoobar());
     }
 
-    public function testGetEnumValues()
+    public function testGetEnumValues(): void
     {
         $instances = FoobarEnum::getEnumValues();
 
@@ -76,7 +76,7 @@ class EnumTest extends PHPUnit_Framework_TestCase
         $this->assertContains(FoobarEnum::BAR(), $instances);
     }
 
-    public function testEquals()
+    public function testEquals(): void
     {
         $foo  = FoobarEnum::FOO();
         $bar  = FoobarEnum::BAR();
